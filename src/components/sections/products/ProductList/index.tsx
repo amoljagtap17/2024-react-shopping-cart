@@ -16,7 +16,7 @@ export function ProductList() {
   return (
     <Grid container rowSpacing={4} columnSpacing={4}>
       {data.map((product) => (
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+        <Grid size={{ xs: 12, md: 6, lg: 4 }} key={product.id} padding={2}>
           <ProductCard {...product} />
         </Grid>
       ))}

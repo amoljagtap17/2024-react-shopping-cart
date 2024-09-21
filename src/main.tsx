@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+// import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { Container, CssBaseline } from "@mui/material";
@@ -8,15 +8,15 @@ import { theme } from "./app/mui";
 import { Navbar } from "./components/sections";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+  // <StrictMode>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
 
-      <Navbar />
+    <Navbar />
 
-      <Container maxWidth="lg">
-        <App />
-      </Container>
-    </ThemeProvider>
-  </StrictMode>
+    <Container maxWidth="lg">
+      <App />
+    </Container>
+  </ThemeProvider>
+  // </StrictMode>
 );
