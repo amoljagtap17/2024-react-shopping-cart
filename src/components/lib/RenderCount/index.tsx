@@ -9,7 +9,7 @@ export function RenderCount() {
   console.log("count::", renderCount.current);
 
   return (
-    <Box position="absolute" right={-20} top={-20}>
+    <Box position="absolute" right={-8} top={-8}>
       <Avatar sx={{ width: 24, height: 24, fontSize: 14 }}>
         {renderCount.current}
       </Avatar>

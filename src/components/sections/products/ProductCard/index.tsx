@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -9,6 +8,7 @@ import {
 } from "@mui/material";
 import { IProduct } from "../../../../app/types";
 import { RenderCount } from "../../../lib";
+import { AddToCartButton } from "./AddToCartButton";
 import { FavoriteButton } from "./FavoriteButton";
 
 export function ProductCard(props: IProduct) {
@@ -30,7 +30,7 @@ export function ProductCard(props: IProduct) {
         </CardContent>
         <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
           <FavoriteButton />
-          <Button>Add to Cart</Button>
+          <AddToCartButton />
         </CardActions>
       </Card>
     </Box>
