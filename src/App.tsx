@@ -1,3 +1,5 @@
+import { ProductList } from "./components/sections";
+
 export function App() {
-  return <h1>App</h1>;
+  return <ProductList products={[]} />;
 }
