@@ -1,16 +1,22 @@
 import { Grid2 as Grid } from "@mui/material";
-import { IProduct } from "../../../../app/types";
 import { ProductCard } from "../ProductCard";
+import { useProducts } from "./useProducts";
 
-interface IProductListProps {
-  products: IProduct[];
-}
+export function ProductList() {
+  const { data, error, isLoading } = useProducts();
 
-export function ProductList({ products }: IProductListProps) {
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error !== null) {
+    return <p>{error}</p>;
+  }
+
   return (
-    <Grid container>
-      {products.map((product) => (
-        <Grid size={{ xs: 12, md: 6, lg: 3 }}>
+    <Grid container rowSpacing={4} columnSpacing={4}>
+      {data.map((product) => (
+        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <ProductCard {...product} />
         </Grid>
       ))}
