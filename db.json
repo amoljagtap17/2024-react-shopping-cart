@@ -1,0 +1,39 @@
+{
+  "products": [
+    {
+      "id": "c4786109-8e64-4790-a748-817815eac82a",
+      "name": "Tasty Granite Shoes",
+      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "price": "749.29",
+      "image": "https://via.placeholder.com/3667x150/6d8f07/4c865a.png?text=apud%20cui%20arbitro"
+    },
+    {
+      "id": "0402732e-961b-490d-8e49-2d44c38b58e9",
+      "name": "Practical Wooden Chicken",
+      "description": "The Football Is Good For Training And Recreational Purposes",
+      "price": "680.00",
+      "image": "https://via.placeholder.com/1428x150/db9696/7aa14b.webp?text=quas%20inventore%20bellicus"
+    },
+    {
+      "id": "a2208450-791c-4fdf-9e19-20a4a4fa6d4a",
+      "name": "Electronic Bronze Shirt",
+      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "price": "628.75",
+      "image": "https://via.placeholder.com/510x150/fbbe87/9d0cc9.webp?text=ars%20depulso%20barba"
+    },
+    {
+      "id": "226b89e5-63d2-4741-8391-8965e979c207",
+      "name": "Rustic Plastic Shirt",
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "price": "468.09",
+      "image": "https://via.placeholder.com/2754x150/de8200/eca8cd.webp?text=voluptatum%20crastinus%20cerno"
+    },
+    {
+      "id": "05967f91-1258-4169-a8b6-cc094961d299",
+      "name": "Awesome Frozen Towels",
+      "description": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+      "price": "154.35",
+      "image": "https://via.placeholder.com/1531x150/fab2a3/f2ade4.jpeg?text=clamo%20basium%20totus"
+    }
+  ]
+}
