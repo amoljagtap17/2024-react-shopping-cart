@@ -7,6 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { ShoppingCartButton } from "./ShoppingCartButton";
 
 export function Navbar() {
   return (
@@ -24,8 +25,9 @@ export function Navbar() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              React Shopping Cart
+              Shopping App
             </Typography>
+            <ShoppingCartButton />
           </Toolbar>
         </Container>
       </AppBar>
