@@ -11,21 +11,21 @@ import { RenderCount } from "../../../lib";
 import { AddToCartButton } from "./AddToCartButton";
 import { FavoriteButton } from "./FavoriteButton";
 
-export function ProductCard(props: IProduct) {
+interface IProductCardProps {
+  product: IProduct;
+}
+
+export function ProductCard({ product }: IProductCardProps) {
+  const { description, name, price } = product;
+
   return (
     <Box position="relative">
       <RenderCount />
       <Card variant="outlined" square>
-        <CardHeader title={props.name} subheader={props.price} />
-        {/* <CardMedia
-        component="img"
-        height={150}
-        image={props.image}
-        alt={props.name}
-      /> */}
+        <CardHeader title={name} subheader={price} />
         <CardContent sx={{ minHeight: 100 }}>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {props.description}
+            {description}
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
