@@ -16,6 +16,20 @@ let theme = createTheme({
       paper: "#fff",
     },
   },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+        disableTouchRipple: true,
+      },
+    },
+    MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+        disableTouchRipple: true,
+      },
+    },
+  },
 });
 
 theme = responsiveFontSizes(theme);
