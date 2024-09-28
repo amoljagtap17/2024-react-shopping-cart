@@ -29,6 +29,7 @@ let theme = createTheme({
         disableRipple: true,
         disableTouchRipple: true,
         focusRipple: false,
+        disableFocusRipple: true,
       },
     },
     MuiButton: {
@@ -36,6 +37,7 @@ let theme = createTheme({
         disableFocusRipple: true,
         disableTouchRipple: true,
         focusRipple: false,
+        disableRipple: true,
       },
     },
   },
