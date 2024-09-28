@@ -21,12 +21,21 @@ let theme = createTheme({
       defaultProps: {
         disableRipple: true,
         disableTouchRipple: true,
+        focusRipple: false,
       },
     },
     MuiIconButton: {
       defaultProps: {
         disableRipple: true,
         disableTouchRipple: true,
+        focusRipple: false,
+      },
+    },
+    MuiButton: {
+      defaultProps: {
+        disableFocusRipple: true,
+        disableTouchRipple: true,
+        focusRipple: false,
       },
     },
   },
