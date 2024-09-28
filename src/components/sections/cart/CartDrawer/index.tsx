@@ -1,5 +1,5 @@
 import { Box, Divider, Drawer, List, Typography } from "@mui/material";
-import { useCart } from "../../../../app/store";
+import { useCartItems } from "../../../../app/store";
 import { RenderCount } from "../../../lib";
 import { CartItemsList } from "./CartItemsList";
 import { CartTotal } from "./CartTotal";
@@ -11,7 +11,7 @@ interface ICartDrawerProps {
 }
 
 export function CartDrawer({ open, onClose }: ICartDrawerProps) {
-  const { cartItems } = useCart();
+  const cartItems = useCartItems();
 
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>

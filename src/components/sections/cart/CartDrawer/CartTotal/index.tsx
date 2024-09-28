@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { useCart } from "../../../../../app/store";
+import { useCartItems } from "../../../../../app/store";
 
 export function CartTotal() {
-  const { cartItems } = useCart();
+  const cartItems = useCartItems();
 
   const getTotalPrice = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);

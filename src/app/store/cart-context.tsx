@@ -1,8 +1,17 @@
 import { produce } from "immer";
-import { createContext, ReactNode, useContext, useReducer } from "react";
-import { ICartAction, ICartContextType, ICartItem } from "../types";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useReducer,
+} from "react";
+import { ICartAction, ICartItem } from "../types";
 
-const CartContext = createContext<ICartContextType | undefined>(undefined);
+const CartStateContext = createContext<ICartItem[]>([]);
+const CartDispatchContext = createContext<Dispatch<ICartAction> | undefined>(
+  undefined
+);
 
 const cartReducer = produce((draft: ICartItem[], action: ICartAction) => {
   switch (action.type) {
@@ -52,45 +61,29 @@ const cartReducer = produce((draft: ICartItem[], action: ICartAction) => {
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, dispatch] = useReducer(cartReducer, []);
 
-  const addItemToCart = (item: ICartItem) => {
-    dispatch({ type: "ADD_ITEM", payload: item });
-  };
-
-  const removeItemFromCart = (id: number) => {
-    dispatch({ type: "REMOVE_ITEM", payload: id });
-  };
-
-  const increaseQuantity = (id: number) => {
-    dispatch({ type: "INCREASE_QUANTITY", payload: id });
-  };
-
-  const decreaseQuantity = (id: number) => {
-    dispatch({ type: "DECREASE_QUANTITY", payload: id });
-  };
-
   console.log("cartItems::", cartItems);
 
   return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        addItemToCart,
-        removeItemFromCart,
-        increaseQuantity,
-        decreaseQuantity,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+    <CartStateContext.Provider value={cartItems}>
+      <CartDispatchContext.Provider value={dispatch}>
+        {children}
+      </CartDispatchContext.Provider>
+    </CartStateContext.Provider>
   );
 };
 
-export const useCart = () => {
-  const context = useContext(CartContext);
-
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
+export const useCartItems = () => {
+  const context = useContext(CartStateContext);
+  if (context === undefined) {
+    throw new Error("useCartItems must be used within a CartProvider");
   }
+  return context;
+};
 
+export const useCartDispatch = () => {
+  const context = useContext(CartDispatchContext);
+  if (context === undefined) {
+    throw new Error("useCartDispatch must be used within a CartProvider");
+  }
   return context;
 };

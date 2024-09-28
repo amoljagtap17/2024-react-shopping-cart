@@ -8,12 +8,12 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useCart } from "../../../../../app/store";
+import { useCartDispatch, useCartItems } from "../../../../../app/store";
 import { RenderCount } from "../../../../lib";
 
 export function CartItemsList() {
-  const { cartItems, increaseQuantity, decreaseQuantity, removeItemFromCart } =
-    useCart();
+  const cartItems = useCartItems();
+  const dispatch = useCartDispatch();
 
   return cartItems.map(({ id, name, price, quantity }) => (
     <ListItem
@@ -23,7 +23,7 @@ export function CartItemsList() {
           edge="end"
           aria-label="delete"
           color="error"
-          onClick={() => removeItemFromCart(id)}
+          onClick={() => dispatch({ type: "REMOVE_ITEM", payload: id })}
         >
           <DeleteIcon />
         </IconButton>
@@ -44,7 +44,7 @@ export function CartItemsList() {
       >
         <IconButton
           edge="end"
-          onClick={() => decreaseQuantity(id)}
+          onClick={() => dispatch({ type: "DECREASE_QUANTITY", payload: id })}
           disabled={quantity <= 1}
           sx={{ display: "block", marginRight: 1 }}
         >
@@ -63,7 +63,7 @@ export function CartItemsList() {
         </Typography>
         <IconButton
           edge="end"
-          onClick={() => increaseQuantity(id)}
+          onClick={() => dispatch({ type: "INCREASE_QUANTITY", payload: id })}
           sx={{ display: "block" }}
         >
           <AddIcon />
