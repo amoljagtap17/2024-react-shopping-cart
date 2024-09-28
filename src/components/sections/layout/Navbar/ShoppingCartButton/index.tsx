@@ -24,7 +24,7 @@ export function ShoppingCartButton() {
           <ShoppingCartCheckoutIcon />
         </IconButton>
       </RenderCount>
-      {showCartDrawer ? <CartDrawer open onClose={toggleCartDrawer} /> : null}
+      <CartDrawer open={showCartDrawer} onClose={toggleCartDrawer} />
     </Box>
   );
 }
