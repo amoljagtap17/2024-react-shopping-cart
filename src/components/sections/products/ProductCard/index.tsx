@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardActions,
   CardContent,
@@ -19,8 +18,7 @@ export function ProductCard({ product }: IProductCardProps) {
   const { description, name, price } = product;
 
   return (
-    <Box position="relative">
-      <RenderCount />
+    <RenderCount bgcolor="primary">
       <Card variant="outlined" square>
         <CardHeader title={name} subheader={price} />
         <CardContent sx={{ minHeight: 100 }}>
@@ -33,6 +31,6 @@ export function ProductCard({ product }: IProductCardProps) {
           <AddToCartButton product={product} />
         </CardActions>
       </Card>
-    </Box>
+    </RenderCount>
   );
 }

@@ -1,18 +1,34 @@
-import { Avatar, Box } from "@mui/material";
-import { useRef } from "react";
+import { Badge } from "@mui/material";
+import { ReactNode, useRef } from "react";
 
-export function RenderCount() {
+interface IRenderCountProp {
+  bgcolor: "primary" | "secondary" | "error" | "info" | "success" | "warning";
+  children: ReactNode;
+}
+
+export function RenderCount({ bgcolor, children }: IRenderCountProp) {
   const renderCount = useRef(0);
 
   renderCount.current += 1;
 
-  console.log("count::", renderCount.current);
-
-  return (
+  /* return (
     <Box position="absolute" right={-8} top={-8}>
-      <Avatar sx={{ width: 24, height: 24, fontSize: 14 }}>
+      <Avatar
+        sx={{
+          width: 24,
+          height: 24,
+          fontSize: 14,
+          bgcolor: bgcolorArray[bgcolor],
+        }}
+      >
         {renderCount.current}
       </Avatar>
     </Box>
+  ); */
+
+  return (
+    <Badge color={bgcolor} badgeContent={renderCount.current} showZero>
+      {children}
+    </Badge>
   );
 }

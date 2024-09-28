@@ -1,5 +1,5 @@
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { Box, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { useCart } from "../../../../../app/store";
 import { IProduct } from "../../../../../app/types";
 import { RenderCount } from "../../../../lib";
@@ -12,14 +12,13 @@ export function AddToCartButton({ product }: IAddToCartButtonProps) {
   const { addItemToCart } = useCart();
 
   return (
-    <Box position="relative">
-      <RenderCount />
+    <RenderCount bgcolor="warning">
       <IconButton
         aria-label="add to cart"
         onClick={() => addItemToCart({ ...product, quantity: 1 })}
       >
         <AddShoppingCartIcon color="info" />
       </IconButton>
-    </Box>
+    </RenderCount>
   );
 }

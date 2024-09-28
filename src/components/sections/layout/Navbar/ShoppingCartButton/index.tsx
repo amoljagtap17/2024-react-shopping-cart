@@ -12,17 +12,18 @@ export function ShoppingCartButton() {
   };
 
   return (
-    <Box position="relative">
-      <RenderCount />
-      <IconButton
-        size="large"
-        edge="start"
-        color="inherit"
-        aria-label="shopping cart"
-        onClick={toggleCartDrawer}
-      >
-        <ShoppingCartCheckoutIcon />
-      </IconButton>
+    <Box>
+      <RenderCount bgcolor="success">
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="shopping cart"
+          onClick={toggleCartDrawer}
+        >
+          <ShoppingCartCheckoutIcon />
+        </IconButton>
+      </RenderCount>
       {showCartDrawer ? <CartDrawer open onClose={toggleCartDrawer} /> : null}
     </Box>
   );

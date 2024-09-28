@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useCart } from "../../../../../app/store";
+import { RenderCount } from "../../../../lib";
 
 export function CartItemsList() {
   const { cartItems, increaseQuantity, decreaseQuantity, removeItemFromCart } =
@@ -29,7 +30,12 @@ export function CartItemsList() {
       }
       divider
     >
-      <ListItemText primary={name} secondary={`${Number(price).toFixed(2)}`} />
+      <ListItemText
+        primary={name}
+        secondary={
+          <RenderCount bgcolor="info">${Number(price).toFixed(2)}</RenderCount>
+        }
+      />
       <Box
         display="flex"
         alignItems="center"
