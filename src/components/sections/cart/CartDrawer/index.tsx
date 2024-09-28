@@ -1,4 +1,8 @@
-import { Box, Divider, Drawer, Typography } from "@mui/material";
+import { Box, Divider, Drawer, List, Typography } from "@mui/material";
+import { useCart } from "../../../../app/store";
+import { CartItemsList } from "./CartItemsList";
+import { CartTotal } from "./CartTotal";
+import { EmptyCart } from "./EmptyCart";
 
 interface ICartDrawerProps {
   open: boolean;
@@ -6,6 +10,8 @@ interface ICartDrawerProps {
 }
 
 export function CartDrawer({ open, onClose }: ICartDrawerProps) {
+  const { cartItems } = useCart();
+
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box width="40vw">
@@ -13,6 +19,10 @@ export function CartDrawer({ open, onClose }: ICartDrawerProps) {
           Cart Items
         </Typography>
         <Divider />
+        <List>
+          {cartItems.length === 0 ? <EmptyCart /> : <CartItemsList />}
+        </List>
+        <CartTotal />
       </Box>
     </Drawer>
   );

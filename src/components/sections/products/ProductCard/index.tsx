@@ -30,7 +30,7 @@ export function ProductCard({ product }: IProductCardProps) {
         </CardContent>
         <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
           <FavoriteButton />
-          <AddToCartButton />
+          <AddToCartButton product={product} />
         </CardActions>
       </Card>
     </Box>
