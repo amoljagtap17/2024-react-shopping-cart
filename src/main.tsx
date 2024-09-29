@@ -3,10 +3,14 @@ import { createRoot } from "react-dom/client";
 
 import { Container, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { App } from "./App.tsx";
+import { lazy, Suspense } from "react";
 import { theme } from "./app/mui";
 import { CartProvider, FavoritesProvider } from "./app/store";
 import { Navbar } from "./components/sections";
+
+const App = lazy(() =>
+  import("./App.tsx").then((module) => ({ default: module.App }))
+);
 
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
@@ -18,7 +22,9 @@ createRoot(document.getElementById("root")!).render(
         <Navbar />
 
         <Container maxWidth="lg">
-          <App />
+          <Suspense fallback={<div>Loading...</div>}>
+            <App />
+          </Suspense>
         </Container>
       </FavoritesProvider>
     </CartProvider>
