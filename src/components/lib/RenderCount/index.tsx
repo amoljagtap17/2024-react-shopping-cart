@@ -27,7 +27,12 @@ export function RenderCount({ bgcolor, children }: IRenderCountProp) {
   ); */
 
   return (
-    <Badge color={bgcolor} badgeContent={renderCount.current} showZero>
+    <Badge
+      color={bgcolor}
+      badgeContent={renderCount.current}
+      showZero
+      max={5000}
+    >
       {children}
     </Badge>
   );
