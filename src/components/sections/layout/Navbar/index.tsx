@@ -7,6 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { FavoritesCount } from "./FavoritesCount";
 import { ShoppingCartButton } from "./ShoppingCartButton";
 
 export function Navbar() {
@@ -27,7 +28,15 @@ export function Navbar() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Shopping App
             </Typography>
-            <ShoppingCartButton />
+            <Box
+              width={100}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <FavoritesCount />
+              <ShoppingCartButton />
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>

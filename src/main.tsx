@@ -5,7 +5,7 @@ import { Container, CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { App } from "./App.tsx";
 import { theme } from "./app/mui";
-import { CartProvider } from "./app/store";
+import { CartProvider, FavoritesProvider } from "./app/store";
 import { Navbar } from "./components/sections";
 
 createRoot(document.getElementById("root")!).render(
@@ -14,11 +14,13 @@ createRoot(document.getElementById("root")!).render(
     <CssBaseline />
 
     <CartProvider>
-      <Navbar />
+      <FavoritesProvider>
+        <Navbar />
 
-      <Container maxWidth="lg">
-        <App />
-      </Container>
+        <Container maxWidth="lg">
+          <App />
+        </Container>
+      </FavoritesProvider>
     </CartProvider>
   </ThemeProvider>
   // </StrictMode>
