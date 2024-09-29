@@ -1,6 +1,8 @@
 import { AxiosError } from "axios";
 import { ReactNode } from "react";
 import { IQueryStatus } from "../../../app/types";
+import { ErrorRetry } from "../ErrorRetry";
+import { Spinner } from "../Spinner";
 
 interface QueryWrapperProps<T> {
   status: IQueryStatus;
@@ -15,17 +17,19 @@ export function QueryWrapper<T>({
   error,
   refetch,
   children,
+  data,
 }: QueryWrapperProps<T>) {
-  if (status === "loading") return <div>Loading...</div>;
+  if (status === "loading") return <Spinner />;
 
   if (status === "error")
     return (
-      <div>
-        Error: {error?.message} <button onClick={refetch}>Retry</button>
-      </div>
+      <ErrorRetry
+        error={error as AxiosError}
+        onClickHandler={() => refetch()}
+      />
     );
 
-  if (status === "success") return <>{children}</>;
+  if (status === "success" && data) return <>{children}</>;
 
   return null;
 }

@@ -9,16 +9,19 @@ export interface IUseQueryOptions<T> {
   enabled?: boolean;
 }
 
-export interface IUseQueryResult<T> {
-  data: T | null;
-  error: AxiosError | null;
-  status: QueryStatus;
+export interface IUseQueryErrorResult {
+  data: null;
+  error: AxiosError;
+  status: IQueryStatus;
   refetch: () => void;
 }
 
-export type IUseQuerySuccessResult<T> = Omit<IUseQueryResult<T>, "data"> & {
+export interface IUseQuerySuccessResult<T> {
   data: T;
-};
+  error: null;
+  status: IQueryStatus;
+  refetch: () => void;
+}
 
 export interface ICacheEntry<T> {
   data: T;

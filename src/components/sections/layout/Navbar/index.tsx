@@ -13,7 +13,7 @@ import { ShoppingCartButton } from "./ShoppingCartButton";
 
 export function Navbar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static" square elevation={0}>
         <Container maxWidth="lg">
           <Toolbar disableGutters>

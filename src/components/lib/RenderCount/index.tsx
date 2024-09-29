@@ -11,21 +11,6 @@ export function RenderCount({ bgcolor, children }: IRenderCountProp) {
 
   renderCount.current += 1;
 
-  /* return (
-    <Box position="absolute" right={-8} top={-8}>
-      <Avatar
-        sx={{
-          width: 24,
-          height: 24,
-          fontSize: 14,
-          bgcolor: bgcolorArray[bgcolor],
-        }}
-      >
-        {renderCount.current}
-      </Avatar>
-    </Box>
-  ); */
-
   return (
     <Badge
       color={bgcolor}
