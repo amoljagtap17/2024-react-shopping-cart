@@ -21,6 +21,8 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
   const dispatch = useCartDispatch();
   const { id, price, quantity, name } = item;
 
+  // TODO: move below all button code to separate components
+
   return (
     <ListItem
       key={id}

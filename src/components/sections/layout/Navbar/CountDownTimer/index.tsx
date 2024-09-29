@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { RenderCount } from "../../../../lib";
 
 export function CountDownTimer() {
+  // TODO: move non UI code to custom hook
   const [timeLeft, setTimeLeft] = useState(3600);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export function CountDownTimer() {
     return () => clearInterval(intervalId);
   }, [timeLeft]);
 
+  // TODO: move below functions to utils file
   const minutes = Math.floor(timeLeft / 60)
     .toString()
     .padStart(2, "0");

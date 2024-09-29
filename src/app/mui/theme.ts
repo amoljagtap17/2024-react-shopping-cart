@@ -38,6 +38,7 @@ let theme = createTheme({
         disableTouchRipple: true,
         focusRipple: false,
         disableRipple: true,
+        disableElevation: true,
       },
     },
   },

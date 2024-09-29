@@ -4,6 +4,7 @@ import { useCartItems } from "../../../../../app/store";
 export function CartTotal() {
   const cartItems = useCartItems();
 
+  // TODO: use useMemo below
   const getTotalPrice = () =>
     cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
