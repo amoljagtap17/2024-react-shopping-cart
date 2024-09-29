@@ -6,7 +6,7 @@ import {
   useContext,
   useReducer,
 } from "react";
-import { ICartAction, ICartItem } from "../types";
+import { CART_ACTION_TYPES, ICartAction, ICartItem } from "../types";
 
 const CartStateContext = createContext<ICartItem[]>([]);
 const CartDispatchContext = createContext<Dispatch<ICartAction> | undefined>(
@@ -15,7 +15,7 @@ const CartDispatchContext = createContext<Dispatch<ICartAction> | undefined>(
 
 const cartReducer = produce((draft: ICartItem[], action: ICartAction) => {
   switch (action.type) {
-    case "ADD_ITEM": {
+    case CART_ACTION_TYPES.ADD_ITEM: {
       const existingItem = draft.find((item) => item.id === action.payload.id);
 
       if (existingItem) {
@@ -26,7 +26,7 @@ const cartReducer = produce((draft: ICartItem[], action: ICartAction) => {
 
       break;
     }
-    case "REMOVE_ITEM": {
+    case CART_ACTION_TYPES.REMOVE_ITEM: {
       const index = draft.findIndex((item) => item.id === action.payload);
 
       if (index !== -1) {
@@ -35,7 +35,7 @@ const cartReducer = produce((draft: ICartItem[], action: ICartAction) => {
 
       break;
     }
-    case "INCREASE_QUANTITY": {
+    case CART_ACTION_TYPES.INCREASE_QUANTITY: {
       const item = draft.find((item) => item.id === action.payload);
 
       if (item) {
@@ -44,7 +44,7 @@ const cartReducer = produce((draft: ICartItem[], action: ICartAction) => {
 
       break;
     }
-    case "DECREASE_QUANTITY": {
+    case CART_ACTION_TYPES.DECREASE_QUANTITY: {
       const item = draft.find((item) => item.id === action.payload);
 
       if (item && item.quantity > 1) {
@@ -74,16 +74,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
 export const useCartItems = () => {
   const context = useContext(CartStateContext);
+
   if (context === undefined) {
     throw new Error("useCartItems must be used within a CartProvider");
   }
+
   return context;
 };
 
 export const useCartDispatch = () => {
   const context = useContext(CartDispatchContext);
+
   if (context === undefined) {
     throw new Error("useCartDispatch must be used within a CartProvider");
   }
+
   return context;
 };

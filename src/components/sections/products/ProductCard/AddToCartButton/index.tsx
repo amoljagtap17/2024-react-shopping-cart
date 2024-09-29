@@ -1,7 +1,7 @@
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { IconButton } from "@mui/material";
 import { useCartDispatch } from "../../../../../app/store";
-import { IProduct } from "../../../../../app/types";
+import { CART_ACTION_TYPES, IProduct } from "../../../../../app/types";
 import { RenderCount } from "../../../../lib";
 
 interface IAddToCartButtonProps {
@@ -16,7 +16,10 @@ export function AddToCartButton({ product }: IAddToCartButtonProps) {
       <IconButton
         aria-label="add to cart"
         onClick={() =>
-          dispatch({ type: "ADD_ITEM", payload: { ...product, quantity: 1 } })
+          dispatch({
+            type: CART_ACTION_TYPES.ADD_ITEM,
+            payload: { ...product, quantity: 1 },
+          })
         }
       >
         <AddShoppingCartIcon color="info" />

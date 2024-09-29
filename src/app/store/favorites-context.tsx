@@ -6,7 +6,11 @@ import {
   useContext,
   useReducer,
 } from "react";
-import { IFavoriteItem, IFavoritesAction } from "../types";
+import {
+  FAVORITES_ACTION_TYPES,
+  IFavoriteItem,
+  IFavoritesAction,
+} from "../types";
 
 const FavoritesStateContext = createContext<IFavoriteItem[]>([]);
 const FavoritesDispatchContext = createContext<
@@ -16,7 +20,7 @@ const FavoritesDispatchContext = createContext<
 const favoritesReducer = produce(
   (draft: IFavoriteItem[], action: IFavoritesAction) => {
     switch (action.type) {
-      case "TOGGLE_FAVORITES": {
+      case FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES: {
         const index = draft.findIndex((item) => item.id === action.payload.id);
 
         if (index !== -1) {

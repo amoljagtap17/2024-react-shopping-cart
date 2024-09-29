@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { memo } from "react";
 import { useCartDispatch } from "../../../../../../app/store";
-import { ICartItem } from "../../../../../../app/types";
+import { CART_ACTION_TYPES, ICartItem } from "../../../../../../app/types";
 import { RenderCount } from "../../../../../lib";
 
 interface ICartItemProps {
@@ -29,7 +29,9 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
           edge="end"
           aria-label="delete"
           color="error"
-          onClick={() => dispatch({ type: "REMOVE_ITEM", payload: id })}
+          onClick={() =>
+            dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM, payload: id })
+          }
         >
           <DeleteIcon />
         </IconButton>
@@ -50,7 +52,9 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
       >
         <IconButton
           edge="end"
-          onClick={() => dispatch({ type: "DECREASE_QUANTITY", payload: id })}
+          onClick={() =>
+            dispatch({ type: CART_ACTION_TYPES.DECREASE_QUANTITY, payload: id })
+          }
           disabled={quantity <= 1}
           sx={{ display: "block", marginRight: 1 }}
         >
@@ -69,7 +73,9 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
         </Typography>
         <IconButton
           edge="end"
-          onClick={() => dispatch({ type: "INCREASE_QUANTITY", payload: id })}
+          onClick={() =>
+            dispatch({ type: CART_ACTION_TYPES.INCREASE_QUANTITY, payload: id })
+          }
           sx={{ display: "block" }}
         >
           <AddIcon />
