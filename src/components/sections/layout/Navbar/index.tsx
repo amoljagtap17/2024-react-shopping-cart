@@ -7,6 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { CountDownTimer } from "./CountDownTimer";
 import { FavoritesCount } from "./FavoritesCount";
 import { ShoppingCartButton } from "./ShoppingCartButton";
 
@@ -25,17 +26,25 @@ export function Navbar() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Shopping App
-            </Typography>
             <Box
-              width={100}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
+              flexGrow={1}
             >
-              <FavoritesCount />
-              <ShoppingCartButton />
+              <Typography variant="h6" component="div">
+                Shopping App
+              </Typography>
+              <CountDownTimer />
+              <Box
+                width={100}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <FavoritesCount />
+                <ShoppingCartButton />
+              </Box>
             </Box>
           </Toolbar>
         </Container>
