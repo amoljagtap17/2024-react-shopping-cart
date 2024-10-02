@@ -4,6 +4,45 @@ import { Box, IconButton, Typography } from "@mui/material";
 import { useCart } from "../../../../../../../app/store";
 import { RenderCount } from "../../../../../../lib";
 
+interface IDecreaseQuantityButtonProps {
+  disabled: boolean;
+  onClick: () => void;
+}
+
+function DecreaseQuantityButton({
+  disabled,
+  onClick,
+}: IDecreaseQuantityButtonProps) {
+  return (
+    <IconButton
+      edge="end"
+      aria-label="add"
+      onClick={onClick}
+      disabled={disabled}
+      sx={{ display: "block", marginRight: 1 }}
+    >
+      <RemoveIcon />
+    </IconButton>
+  );
+}
+
+interface IIncreaseQuantityButtonProps {
+  onClick: () => void;
+}
+
+function IncreaseQuantityButton({ onClick }: IIncreaseQuantityButtonProps) {
+  return (
+    <IconButton
+      edge="end"
+      aria-label="remove"
+      onClick={onClick}
+      sx={{ display: "block" }}
+    >
+      <AddIcon />
+    </IconButton>
+  );
+}
+
 interface IQuantityButtonsProps {
   id: number;
   quantity: number;
@@ -11,6 +50,14 @@ interface IQuantityButtonsProps {
 
 export function QuantityButtons({ id, quantity }: IQuantityButtonsProps) {
   const { increaseQuantity, decreaseQuantity } = useCart();
+
+  const onDecreaseButtonClick = () => {
+    decreaseQuantity(id);
+  };
+
+  const onIncreaseButtonClick = () => {
+    increaseQuantity(id);
+  };
 
   return (
     <RenderCount bgcolor="primary">
@@ -20,14 +67,10 @@ export function QuantityButtons({ id, quantity }: IQuantityButtonsProps) {
         justifyContent="center"
         width={140}
       >
-        <IconButton
-          edge="end"
-          onClick={() => decreaseQuantity(id)}
+        <DecreaseQuantityButton
           disabled={quantity <= 1}
-          sx={{ display: "block", marginRight: 1 }}
-        >
-          <RemoveIcon />
-        </IconButton>
+          onClick={onDecreaseButtonClick}
+        />
         <Typography
           variant="body1"
           width={24}
@@ -39,13 +82,7 @@ export function QuantityButtons({ id, quantity }: IQuantityButtonsProps) {
         >
           {quantity}
         </Typography>
-        <IconButton
-          edge="end"
-          onClick={() => increaseQuantity(id)}
-          sx={{ display: "block" }}
-        >
-          <AddIcon />
-        </IconButton>
+        <IncreaseQuantityButton onClick={onIncreaseButtonClick} />
       </Box>
     </RenderCount>
   );
