@@ -8,20 +8,17 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { memo } from "react";
-import { useCartDispatch } from "../../../../../../app/store";
-import { CART_ACTION_TYPES, ICartItem } from "../../../../../../app/types";
+import { useCart } from "../../../../../../app/store";
+import { ICartItem } from "../../../../../../app/types";
 import { RenderCount } from "../../../../../lib";
 
 interface ICartItemProps {
   item: ICartItem;
 }
 
-function CartItemUnmemoized({ item }: ICartItemProps) {
-  const dispatch = useCartDispatch();
+export function CartItem({ item }: ICartItemProps) {
+  const { removeItemFromCart, increaseQuantity, decreaseQuantity } = useCart();
   const { id, price, quantity, name } = item;
-
-  // TODO: move below all button code to separate components
 
   return (
     <ListItem
@@ -31,9 +28,7 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
           edge="end"
           aria-label="delete"
           color="error"
-          onClick={() =>
-            dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM, payload: id })
-          }
+          onClick={() => removeItemFromCart(id)}
         >
           <DeleteIcon />
         </IconButton>
@@ -54,9 +49,7 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
       >
         <IconButton
           edge="end"
-          onClick={() =>
-            dispatch({ type: CART_ACTION_TYPES.DECREASE_QUANTITY, payload: id })
-          }
+          onClick={() => decreaseQuantity(id)}
           disabled={quantity <= 1}
           sx={{ display: "block", marginRight: 1 }}
         >
@@ -75,9 +68,7 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
         </Typography>
         <IconButton
           edge="end"
-          onClick={() =>
-            dispatch({ type: CART_ACTION_TYPES.INCREASE_QUANTITY, payload: id })
-          }
+          onClick={() => increaseQuantity(id)}
           sx={{ display: "block" }}
         >
           <AddIcon />
@@ -86,5 +77,3 @@ function CartItemUnmemoized({ item }: ICartItemProps) {
     </ListItem>
   );
 }
-
-export const CartItem = memo(CartItemUnmemoized);

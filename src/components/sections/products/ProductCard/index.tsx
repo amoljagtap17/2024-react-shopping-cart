@@ -9,15 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  useCartDispatch,
+  useCart,
   useFavoritesDispatch,
   useFavoritesItems,
 } from "../../../../app/store";
-import {
-  CART_ACTION_TYPES,
-  FAVORITES_ACTION_TYPES,
-  IProduct,
-} from "../../../../app/types";
+import { FAVORITES_ACTION_TYPES, IProduct } from "../../../../app/types";
 import { RenderCount } from "../../../lib";
 
 interface IProductCardProps {
@@ -27,7 +23,7 @@ interface IProductCardProps {
 export function ProductCard({ product }: IProductCardProps) {
   const favoritesDispatch = useFavoritesDispatch();
   const favoritesItems = useFavoritesItems();
-  const cartDispatch = useCartDispatch();
+  const { addItemToCart } = useCart();
 
   const { description, name, price } = product;
 
@@ -41,10 +37,7 @@ export function ProductCard({ product }: IProductCardProps) {
   };
 
   const addToCart = () => {
-    cartDispatch({
-      type: CART_ACTION_TYPES.ADD_ITEM,
-      payload: { ...product, quantity: 1 },
-    });
+    addItemToCart({ ...product, quantity: 1 });
   };
 
   return (
