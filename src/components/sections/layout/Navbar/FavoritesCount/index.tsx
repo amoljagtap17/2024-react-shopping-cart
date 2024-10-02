@@ -1,9 +1,9 @@
 import { Avatar } from "@mui/material";
-import { useFavorites } from "../../../../../app/store";
+import { useFavoritesState } from "../../../../../app/store";
 import { RenderCount } from "../../../../lib";
 
 export function FavoritesCount() {
-  const { favoritesItems } = useFavorites();
+  const { favoritesItems } = useFavoritesState();
 
   return (
     <RenderCount bgcolor="success">

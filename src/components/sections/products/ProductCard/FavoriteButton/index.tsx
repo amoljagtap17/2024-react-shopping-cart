@@ -1,7 +1,7 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { useState } from "react";
-import { useFavorites } from "../../../../../app/store";
+import { useFavoritesActions } from "../../../../../app/store";
 import { IProduct } from "../../../../../app/types";
 import { RenderCount } from "../../../../lib";
 
@@ -11,7 +11,7 @@ interface IFavoriteButtonProps {
 
 export function FavoriteButton({ product }: IFavoriteButtonProps) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const { toggleFavorites } = useFavorites();
+  const { toggleFavorites } = useFavoritesActions();
 
   const toggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);

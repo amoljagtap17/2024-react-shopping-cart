@@ -1,64 +1,76 @@
-import { produce } from "immer";
-import { createContext, ReactNode, useContext, useReducer } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useReducer,
+} from "react";
 import {
   FAVORITES_ACTION_TYPES,
   IFavoriteItem,
-  IFavoritesAction,
-  IFavoritesContextType,
+  IFavoritesContextActionsType,
+  IFavoritesContextStateType,
 } from "../types";
+import { favoritesReducer } from "./reducers";
 
-const FavoritesContext = createContext<IFavoritesContextType | undefined>(
-  undefined
-);
-
-const favoritesReducer = produce(
-  (draft: IFavoriteItem[], action: IFavoritesAction) => {
-    switch (action.type) {
-      case FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES: {
-        const index = draft.findIndex((item) => item.id === action.payload.id);
-
-        if (index !== -1) {
-          draft.splice(index, 1);
-        } else {
-          draft.push(action.payload);
-        }
-
-        break;
-      }
-      default:
-        return draft;
-    }
-  },
-  []
-);
+// CODE OPTIMIZATION 2: Create context with separate types for state and actions
+const FavoritesStateContext = createContext<
+  IFavoritesContextStateType | undefined
+>(undefined);
+const FavoritesActionsContext = createContext<
+  IFavoritesContextActionsType | undefined
+>(undefined);
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favoritesItems, dispatch] = useReducer(favoritesReducer, []);
 
-  const toggleFavorites = (item: IFavoriteItem) => {
-    dispatch({
-      type: FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES,
-      payload: item,
-    });
-  };
+  const toggleFavorites = useCallback(
+    (item: IFavoriteItem) => {
+      dispatch({
+        type: FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES,
+        payload: item,
+      });
+    },
+    [dispatch]
+  );
 
-  const values: IFavoritesContextType = {
-    favoritesItems,
-    toggleFavorites,
-  };
+  const state: IFavoritesContextStateType = { favoritesItems };
+
+  const actions: IFavoritesContextActionsType = useMemo(() => {
+    return {
+      toggleFavorites,
+    };
+  }, [toggleFavorites]);
 
   return (
-    <FavoritesContext.Provider value={values}>
-      {children}
-    </FavoritesContext.Provider>
+    <FavoritesActionsContext.Provider value={actions}>
+      <FavoritesStateContext.Provider value={state}>
+        {children}
+      </FavoritesStateContext.Provider>
+    </FavoritesActionsContext.Provider>
   );
 };
 
-export const useFavorites = () => {
-  const context = useContext(FavoritesContext);
+export const useFavoritesState = () => {
+  const context = useContext(FavoritesStateContext);
 
   if (context === undefined) {
-    throw new Error("useFavorites must be used within a FavoritesProvider");
+    throw new Error(
+      "useFavoritesState must be used within a FavoritesStateContext"
+    );
+  }
+
+  return context;
+};
+
+export const useFavoritesActions = () => {
+  const context = useContext(FavoritesActionsContext);
+
+  if (context === undefined) {
+    throw new Error(
+      "useFavoritesActions must be used within a FavoritesActionsContext"
+    );
   }
 
   return context;

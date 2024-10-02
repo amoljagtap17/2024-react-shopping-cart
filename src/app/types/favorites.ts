@@ -15,3 +15,12 @@ export interface IFavoritesContextType {
   favoritesItems: IFavoriteItem[];
   toggleFavorites: (item: IFavoriteItem) => void;
 }
+
+// CODE OPTIMIZATION 2: Create separate types for state and actions
+export interface IFavoritesContextStateType {
+  favoritesItems: IFavoriteItem[];
+}
+
+export interface IFavoritesContextActionsType {
+  toggleFavorites: (item: IFavoriteItem) => void;
+}
