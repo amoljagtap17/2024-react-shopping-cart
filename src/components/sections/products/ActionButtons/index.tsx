@@ -1,13 +1,25 @@
-import { Stack } from "@mui/material";
-import { RefetchButton } from "../../../lib";
+import { Box, Stack } from "@mui/material";
+import { ReactNode, useReducer } from "react";
+import { RefetchButton, RefreshButton, RenderCount } from "../../../lib";
 import { useProducts } from "../ProductList/useProducts";
 
-export function ActionButtons() {
-  const { refetch } = useProducts();
+interface IActionButtonsProps {
+  children: ReactNode;
+}
+
+export function ActionButtons({ children }: IActionButtonsProps) {
+  const { refetch, status } = useProducts();
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   return (
-    <Stack direction="row-reverse">
-      <RefetchButton onClick={refetch} />
-    </Stack>
+    <RenderCount bgcolor="error">
+      <Stack spacing={2} direction="column">
+        <Stack direction="row-reverse" spacing={2}>
+          <RefetchButton onClick={refetch} disabled={status === "loading"} />
+          <RefreshButton onClick={forceUpdate} />
+        </Stack>
+        <Box key={ignored}>{children}</Box>
+      </Stack>
+    </RenderCount>
   );
 }
