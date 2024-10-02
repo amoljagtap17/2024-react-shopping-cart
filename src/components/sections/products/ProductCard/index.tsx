@@ -8,8 +8,11 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { useCartDispatch, useFavoritesDispatch } from "../../../../app/store";
+import {
+  useCartDispatch,
+  useFavoritesDispatch,
+  useFavoritesItems,
+} from "../../../../app/store";
 import {
   CART_ACTION_TYPES,
   FAVORITES_ACTION_TYPES,
@@ -22,16 +25,25 @@ interface IProductCardProps {
 }
 
 export function ProductCard({ product }: IProductCardProps) {
-  const { description, name, price } = product;
-  const [isFavorite, setIsFavorite] = useState(false);
   const favoritesDispatch = useFavoritesDispatch();
+  const favoritesItems = useFavoritesItems();
   const cartDispatch = useCartDispatch();
 
+  const { description, name, price } = product;
+
+  const isFavorite = favoritesItems.find((item) => item.id === product.id);
+
   const toggleFavorite = () => {
-    setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     favoritesDispatch({
       type: FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES,
       payload: product,
+    });
+  };
+
+  const addToCart = () => {
+    cartDispatch({
+      type: CART_ACTION_TYPES.ADD_ITEM,
+      payload: { ...product, quantity: 1 },
     });
   };
 
@@ -51,15 +63,7 @@ export function ProductCard({ product }: IProductCardProps) {
             </IconButton>
           </RenderCount>
           <RenderCount bgcolor="warning">
-            <IconButton
-              aria-label="add to cart"
-              onClick={() =>
-                cartDispatch({
-                  type: CART_ACTION_TYPES.ADD_ITEM,
-                  payload: { ...product, quantity: 1 },
-                })
-              }
-            >
+            <IconButton aria-label="add to cart" onClick={addToCart}>
               <AddShoppingCartIcon color="info" />
             </IconButton>
           </RenderCount>
