@@ -11,9 +11,11 @@ export function CartDrawer() {
         Cart Items
       </Typography>
       <Divider />
-      <RenderCount bgcolor="error">
-        <Box padding={2} />
-      </RenderCount>
+      <Box paddingX={4}>
+        <RenderCount bgcolor="error">
+          <Box />
+        </RenderCount>
+      </Box>
       <List>
         <EmptyCart />
         <CartItemsList />

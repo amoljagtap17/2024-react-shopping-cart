@@ -17,6 +17,8 @@ export function RenderCount({ bgcolor, children }: IRenderCountProp) {
       badgeContent={renderCount.current}
       showZero
       max={5000}
+      component="div"
+      sx={{ display: "block" }}
     >
       {children}
     </Badge>
