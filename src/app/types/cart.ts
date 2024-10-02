@@ -24,3 +24,15 @@ export interface ICartContextType {
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
 }
+
+// CODE OPTIMIZATION 1: Create separate types for state and actions
+export interface ICartContextStateType {
+  cartItems: ICartItem[];
+}
+
+export interface ICartContextActionsType {
+  addItemToCart: (item: ICartItem) => void;
+  removeItemFromCart: (id: number) => void;
+  increaseQuantity: (id: number) => void;
+  decreaseQuantity: (id: number) => void;
+}
