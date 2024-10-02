@@ -1,41 +1,22 @@
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  IconButton,
   Typography,
 } from "@mui/material";
-import {
-  useCartActions,
-  useFavoritesActions,
-  useFavoritesState,
-} from "../../../../app/store";
 import { IProduct } from "../../../../app/types";
 import { RenderCount } from "../../../lib";
+import { AddToCartButton } from "./AddToCartButton";
+import { FavoriteButton } from "./FavoriteButton";
 
 interface IProductCardProps {
   product: IProduct;
 }
+// CODE OPTIMIZATION 3: refactor using new components
 
 export function ProductCard({ product }: IProductCardProps) {
-  const { favoritesItems } = useFavoritesState();
-  const { toggleFavorites } = useFavoritesActions();
-  const { addItemToCart } = useCartActions();
-
   const { description, name, price } = product;
-
-  const isFavorite = favoritesItems.find((item) => item.id === product.id);
-
-  const toggleFavorite = () => {
-    toggleFavorites(product);
-  };
-
-  const addToCart = () => {
-    addItemToCart({ ...product, quantity: 1 });
-  };
 
   return (
     <RenderCount bgcolor="primary">
@@ -47,16 +28,8 @@ export function ProductCard({ product }: IProductCardProps) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
-          <RenderCount bgcolor="secondary">
-            <IconButton aria-label="add to favorites" onClick={toggleFavorite}>
-              <FavoriteIcon color={isFavorite ? "primary" : "secondary"} />
-            </IconButton>
-          </RenderCount>
-          <RenderCount bgcolor="warning">
-            <IconButton aria-label="add to cart" onClick={addToCart}>
-              <AddShoppingCartIcon color="info" />
-            </IconButton>
-          </RenderCount>
+          <FavoriteButton product={product} />
+          <AddToCartButton product={product} />
         </CardActions>
       </Card>
     </RenderCount>
