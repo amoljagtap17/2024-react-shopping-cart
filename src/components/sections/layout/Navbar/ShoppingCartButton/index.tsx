@@ -4,6 +4,24 @@ import { useState } from "react";
 import { RenderCount } from "../../../../lib";
 import { CartDrawer } from "../../../cart";
 
+interface IShoppingCartButtonProps {
+  onClick: () => void;
+}
+
+function ShoppingCartIconButton({ onClick }: IShoppingCartButtonProps) {
+  return (
+    <IconButton
+      size="large"
+      edge="start"
+      color="inherit"
+      aria-label="shopping cart"
+      onClick={onClick}
+    >
+      <ShoppingCartCheckoutIcon />
+    </IconButton>
+  );
+}
+
 export function ShoppingCartButton() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,15 +30,7 @@ export function ShoppingCartButton() {
   return (
     <Box>
       <RenderCount bgcolor="success">
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="shopping cart"
-          onClick={handleOpen}
-        >
-          <ShoppingCartCheckoutIcon />
-        </IconButton>
+        <ShoppingCartIconButton onClick={handleOpen} />
       </RenderCount>
 
       {isOpen ? (
