@@ -1,5 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton, ListItem, ListItemText } from "@mui/material";
+import { memo } from "react";
 import { useCartActions } from "../../../../../../app/store";
 import { ICartItem } from "../../../../../../app/types";
 import { RenderCount } from "../../../../../lib";
@@ -9,7 +10,9 @@ interface ICartItemProps {
   item: ICartItem;
 }
 
-export function CartItem({ item }: ICartItemProps) {
+// CODE OPTIMIZATION 4: memoize the below component
+
+function CartItemUnmemoized({ item }: ICartItemProps) {
   const { removeItemFromCart } = useCartActions();
   const { id, price, quantity, name } = item;
 
@@ -40,3 +43,5 @@ export function CartItem({ item }: ICartItemProps) {
     </ListItem>
   );
 }
+
+export const CartItem = memo(CartItemUnmemoized);
