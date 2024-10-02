@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useReducer } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useReducer,
+} from "react";
 import {
   CART_ACTION_TYPES,
   ICartContextActionsType,
@@ -18,21 +24,21 @@ const CartActionsContext = createContext<ICartContextActionsType | undefined>(
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, dispatch] = useReducer(cartReducer, []);
 
-  const addItemToCart = (item: ICartItem) => {
+  const addItemToCart = useCallback((item: ICartItem) => {
     dispatch({ type: CART_ACTION_TYPES.ADD_ITEM, payload: item });
-  };
+  }, []);
 
-  const removeItemFromCart = (id: number) => {
+  const removeItemFromCart = useCallback((id: number) => {
     dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM, payload: id });
-  };
+  }, []);
 
-  const increaseQuantity = (id: number) => {
+  const increaseQuantity = useCallback((id: number) => {
     dispatch({ type: CART_ACTION_TYPES.INCREASE_QUANTITY, payload: id });
-  };
+  }, []);
 
-  const decreaseQuantity = (id: number) => {
+  const decreaseQuantity = useCallback((id: number) => {
     dispatch({ type: CART_ACTION_TYPES.DECREASE_QUANTITY, payload: id });
-  };
+  }, []);
 
   // CODE OPTIMIZATION 1: Create separate state and actions values
   const state: ICartContextStateType = {
