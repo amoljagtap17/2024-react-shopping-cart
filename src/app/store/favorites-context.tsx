@@ -1,21 +1,15 @@
 import { produce } from "immer";
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useContext,
-  useReducer,
-} from "react";
+import { createContext, ReactNode, useContext, useReducer } from "react";
 import {
   FAVORITES_ACTION_TYPES,
   IFavoriteItem,
   IFavoritesAction,
+  IFavoritesContextType,
 } from "../types";
 
-const FavoritesStateContext = createContext<IFavoriteItem[]>([]);
-const FavoritesDispatchContext = createContext<
-  Dispatch<IFavoritesAction> | undefined
->(undefined);
+const FavoritesContext = createContext<IFavoritesContextType | undefined>(
+  undefined
+);
 
 const favoritesReducer = produce(
   (draft: IFavoriteItem[], action: IFavoritesAction) => {
@@ -41,36 +35,30 @@ const favoritesReducer = produce(
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favoritesItems, dispatch] = useReducer(favoritesReducer, []);
 
-  console.log("favoritesItems::", favoritesItems);
+  const toggleFavorites = (item: IFavoriteItem) => {
+    dispatch({
+      type: FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES,
+      payload: item,
+    });
+  };
+
+  const values: IFavoritesContextType = {
+    favoritesItems,
+    toggleFavorites,
+  };
 
   return (
-    <FavoritesDispatchContext.Provider value={dispatch}>
-      <FavoritesStateContext.Provider value={favoritesItems}>
-        {children}
-      </FavoritesStateContext.Provider>
-    </FavoritesDispatchContext.Provider>
+    <FavoritesContext.Provider value={values}>
+      {children}
+    </FavoritesContext.Provider>
   );
 };
 
-export const useFavoritesItems = () => {
-  const context = useContext(FavoritesStateContext);
+export const useFavorites = () => {
+  const context = useContext(FavoritesContext);
 
   if (context === undefined) {
-    throw new Error(
-      "useFavoritesItems must be used within a FavoritesProvider"
-    );
-  }
-
-  return context;
-};
-
-export const useFavoritesDispatch = () => {
-  const context = useContext(FavoritesDispatchContext);
-
-  if (context === undefined) {
-    throw new Error(
-      "useFavoritesDispatch must be used within a FavoritesProvider"
-    );
+    throw new Error("useFavorites must be used within a FavoritesProvider");
   }
 
   return context;

@@ -8,12 +8,8 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import {
-  useCart,
-  useFavoritesDispatch,
-  useFavoritesItems,
-} from "../../../../app/store";
-import { FAVORITES_ACTION_TYPES, IProduct } from "../../../../app/types";
+import { useCart, useFavorites } from "../../../../app/store";
+import { IProduct } from "../../../../app/types";
 import { RenderCount } from "../../../lib";
 
 interface IProductCardProps {
@@ -21,8 +17,7 @@ interface IProductCardProps {
 }
 
 export function ProductCard({ product }: IProductCardProps) {
-  const favoritesDispatch = useFavoritesDispatch();
-  const favoritesItems = useFavoritesItems();
+  const { favoritesItems, toggleFavorites } = useFavorites();
   const { addItemToCart } = useCart();
 
   const { description, name, price } = product;
@@ -30,10 +25,7 @@ export function ProductCard({ product }: IProductCardProps) {
   const isFavorite = favoritesItems.find((item) => item.id === product.id);
 
   const toggleFavorite = () => {
-    favoritesDispatch({
-      type: FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES,
-      payload: product,
-    });
+    toggleFavorites(product);
   };
 
   const addToCart = () => {
