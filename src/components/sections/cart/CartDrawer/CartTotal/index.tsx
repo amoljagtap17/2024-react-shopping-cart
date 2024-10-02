@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { useCart } from "../../../../../app/store";
+import { useCartState } from "../../../../../app/store";
 
 export function CartTotal() {
-  const { cartItems } = useCart();
+  const { cartItems } = useCartState();
 
   // TODO: use useMemo below
   const getTotalPrice = () =>

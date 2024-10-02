@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
-import { useCart } from "../../../../../app/store";
+import { useCartState } from "../../../../../app/store";
 
 export function EmptyCart() {
-  const { cartItems } = useCart();
+  const { cartItems } = useCartState();
 
   return cartItems.length === 0 ? (
     <Typography variant="body1" sx={{ p: 2 }}>

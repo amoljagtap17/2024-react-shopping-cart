@@ -1,6 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton, ListItem, ListItemText } from "@mui/material";
-import { useCart } from "../../../../../../app/store";
+import { useCartActions } from "../../../../../../app/store";
 import { ICartItem } from "../../../../../../app/types";
 import { RenderCount } from "../../../../../lib";
 import { QuantityButtons } from "./QuantityButtons";
@@ -10,7 +10,7 @@ interface ICartItemProps {
 }
 
 export function CartItem({ item }: ICartItemProps) {
-  const { removeItemFromCart } = useCart();
+  const { removeItemFromCart } = useCartActions();
   const { id, price, quantity, name } = item;
 
   return (

@@ -8,7 +8,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useCart, useFavorites } from "../../../../app/store";
+import { useCartActions, useFavorites } from "../../../../app/store";
 import { IProduct } from "../../../../app/types";
 import { RenderCount } from "../../../lib";
 
@@ -18,7 +18,7 @@ interface IProductCardProps {
 
 export function ProductCard({ product }: IProductCardProps) {
   const { favoritesItems, toggleFavorites } = useFavorites();
-  const { addItemToCart } = useCart();
+  const { addItemToCart } = useCartActions();
 
   const { description, name, price } = product;
 

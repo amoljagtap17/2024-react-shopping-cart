@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Box, IconButton, Typography } from "@mui/material";
-import { useCart } from "../../../../../../../app/store";
+import { useCartActions } from "../../../../../../../app/store";
 import { RenderCount } from "../../../../../../lib";
 
 interface IDecreaseQuantityButtonProps {
@@ -49,7 +49,7 @@ interface IQuantityButtonsProps {
 }
 
 export function QuantityButtons({ id, quantity }: IQuantityButtonsProps) {
-  const { increaseQuantity, decreaseQuantity } = useCart();
+  const { increaseQuantity, decreaseQuantity } = useCartActions();
 
   const onDecreaseButtonClick = () => {
     decreaseQuantity(id);
