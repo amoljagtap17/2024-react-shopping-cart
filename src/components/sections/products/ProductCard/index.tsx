@@ -1,14 +1,21 @@
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Card,
   CardActions,
   CardContent,
   CardHeader,
+  IconButton,
   Typography,
 } from "@mui/material";
-import { IProduct } from "../../../../app/types";
+import { useState } from "react";
+import { useCartDispatch, useFavoritesDispatch } from "../../../../app/store";
+import {
+  CART_ACTION_TYPES,
+  FAVORITES_ACTION_TYPES,
+  IProduct,
+} from "../../../../app/types";
 import { RenderCount } from "../../../lib";
-import { AddToCartButton } from "./AddToCartButton";
-import { FavoriteButton } from "./FavoriteButton";
 
 interface IProductCardProps {
   product: IProduct;
@@ -16,6 +23,17 @@ interface IProductCardProps {
 
 export function ProductCard({ product }: IProductCardProps) {
   const { description, name, price } = product;
+  const [isFavorite, setIsFavorite] = useState(false);
+  const favoritesDispatch = useFavoritesDispatch();
+  const cartDispatch = useCartDispatch();
+
+  const toggleFavorite = () => {
+    setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+    favoritesDispatch({
+      type: FAVORITES_ACTION_TYPES.TOGGLE_FAVORITES,
+      payload: product,
+    });
+  };
 
   return (
     <RenderCount bgcolor="primary">
@@ -27,9 +45,24 @@ export function ProductCard({ product }: IProductCardProps) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
-          {/* TODO - pass ids instead of the entire object */}
-          <FavoriteButton product={product} />
-          <AddToCartButton product={product} />
+          <RenderCount bgcolor="secondary">
+            <IconButton aria-label="add to favorites" onClick={toggleFavorite}>
+              <FavoriteIcon color={isFavorite ? "primary" : "secondary"} />
+            </IconButton>
+          </RenderCount>
+          <RenderCount bgcolor="warning">
+            <IconButton
+              aria-label="add to cart"
+              onClick={() =>
+                cartDispatch({
+                  type: CART_ACTION_TYPES.ADD_ITEM,
+                  payload: { ...product, quantity: 1 },
+                })
+              }
+            >
+              <AddShoppingCartIcon color="info" />
+            </IconButton>
+          </RenderCount>
         </CardActions>
       </Card>
     </RenderCount>
