@@ -1,23 +1,16 @@
-import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveIcon from "@mui/icons-material/Remove";
-import {
-  Box,
-  IconButton,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { IconButton, ListItem, ListItemText } from "@mui/material";
 import { useCart } from "../../../../../../app/store";
 import { ICartItem } from "../../../../../../app/types";
 import { RenderCount } from "../../../../../lib";
+import { QuantityButtons } from "./QuantityButtons";
 
 interface ICartItemProps {
   item: ICartItem;
 }
 
 export function CartItem({ item }: ICartItemProps) {
-  const { removeItemFromCart, increaseQuantity, decreaseQuantity } = useCart();
+  const { removeItemFromCart } = useCart();
   const { id, price, quantity, name } = item;
 
   return (
@@ -43,39 +36,7 @@ export function CartItem({ item }: ICartItemProps) {
           </RenderCount>
         }
       />
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        width={140}
-      >
-        <IconButton
-          edge="end"
-          onClick={() => decreaseQuantity(id)}
-          disabled={quantity <= 1}
-          sx={{ display: "block", marginRight: 1 }}
-        >
-          <RemoveIcon />
-        </IconButton>
-        <Typography
-          variant="body1"
-          width={24}
-          height={30}
-          component="div"
-          padding={1}
-          boxSizing="content-box"
-          textAlign="center"
-        >
-          {quantity}
-        </Typography>
-        <IconButton
-          edge="end"
-          onClick={() => increaseQuantity(id)}
-          sx={{ display: "block" }}
-        >
-          <AddIcon />
-        </IconButton>
-      </Box>
+      <QuantityButtons id={id} quantity={quantity} />
     </ListItem>
   );
 }
