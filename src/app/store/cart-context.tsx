@@ -3,6 +3,7 @@ import {
   ReactNode,
   useCallback,
   useContext,
+  useMemo,
   useReducer,
 } from "react";
 import {
@@ -24,33 +25,49 @@ const CartActionsContext = createContext<ICartContextActionsType | undefined>(
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, dispatch] = useReducer(cartReducer, []);
 
-  const addItemToCart = useCallback((item: ICartItem) => {
-    dispatch({ type: CART_ACTION_TYPES.ADD_ITEM, payload: item });
-  }, []);
+  console.log("cartItems::", cartItems);
 
-  const removeItemFromCart = useCallback((id: number) => {
-    dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM, payload: id });
-  }, []);
+  const addItemToCart = useCallback(
+    (item: ICartItem) => {
+      dispatch({ type: CART_ACTION_TYPES.ADD_ITEM, payload: item });
+    },
+    [dispatch]
+  );
 
-  const increaseQuantity = useCallback((id: number) => {
-    dispatch({ type: CART_ACTION_TYPES.INCREASE_QUANTITY, payload: id });
-  }, []);
+  const removeItemFromCart = useCallback(
+    (id: number) => {
+      dispatch({ type: CART_ACTION_TYPES.REMOVE_ITEM, payload: id });
+    },
+    [dispatch]
+  );
 
-  const decreaseQuantity = useCallback((id: number) => {
-    dispatch({ type: CART_ACTION_TYPES.DECREASE_QUANTITY, payload: id });
-  }, []);
+  const increaseQuantity = useCallback(
+    (id: number) => {
+      dispatch({ type: CART_ACTION_TYPES.INCREASE_QUANTITY, payload: id });
+    },
+    [dispatch]
+  );
+
+  const decreaseQuantity = useCallback(
+    (id: number) => {
+      dispatch({ type: CART_ACTION_TYPES.DECREASE_QUANTITY, payload: id });
+    },
+    [dispatch]
+  );
 
   // CODE OPTIMIZATION 1: Create separate state and actions values
   const state: ICartContextStateType = {
     cartItems,
   };
 
-  const actions: ICartContextActionsType = {
-    addItemToCart,
-    removeItemFromCart,
-    increaseQuantity,
-    decreaseQuantity,
-  };
+  const actions: ICartContextActionsType = useMemo(() => {
+    return {
+      addItemToCart,
+      removeItemFromCart,
+      increaseQuantity,
+      decreaseQuantity,
+    };
+  }, [addItemToCart, removeItemFromCart, increaseQuantity, decreaseQuantity]);
 
   // CODE OPTIMIZATION 1: use separate providers for state and actions
   return (
