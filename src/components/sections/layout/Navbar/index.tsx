@@ -7,7 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { CountDownTimer } from "./CountDownTimer";
+// import { CountDownTimer } from "./CountDownTimer";
 import { FavoritesCount } from "./FavoritesCount";
 import { ShoppingCartButton } from "./ShoppingCartButton";
 
@@ -35,7 +35,7 @@ export function Navbar() {
               <Typography variant="h6" component="div">
                 Shopping App
               </Typography>
-              <CountDownTimer />
+              {/* <CountDownTimer /> */}
               <Box
                 width={100}
                 display="flex"
