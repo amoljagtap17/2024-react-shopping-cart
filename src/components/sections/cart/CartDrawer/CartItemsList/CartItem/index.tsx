@@ -38,7 +38,9 @@ export function CartItem({ item }: ICartItemProps) {
       <ListItemText
         primary={name}
         secondary={
-          <RenderCount bgcolor="info">${Number(price).toFixed(2)}</RenderCount>
+          <RenderCount bgcolor="info" component="span">
+            ${Number(price).toFixed(2)}
+          </RenderCount>
         }
       />
       <Box

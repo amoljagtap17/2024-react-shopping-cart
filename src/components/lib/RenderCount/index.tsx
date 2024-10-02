@@ -4,9 +4,14 @@ import { ReactNode, useRef } from "react";
 interface IRenderCountProp {
   bgcolor: "primary" | "secondary" | "error" | "info" | "success" | "warning";
   children: ReactNode;
+  component?: "span" | "div";
 }
 
-export function RenderCount({ bgcolor, children }: IRenderCountProp) {
+export function RenderCount({
+  bgcolor,
+  children,
+  component = "div",
+}: IRenderCountProp) {
   const renderCount = useRef(0);
 
   renderCount.current += 1;
@@ -17,7 +22,7 @@ export function RenderCount({ bgcolor, children }: IRenderCountProp) {
       badgeContent={renderCount.current}
       showZero
       max={5000}
-      component="div"
+      component={component}
       sx={{ display: "block" }}
     >
       {children}
