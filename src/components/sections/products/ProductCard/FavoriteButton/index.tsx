@@ -21,7 +21,7 @@ export function FavoriteButton({ product }: IFavoriteButtonProps) {
   return (
     <RenderCount bgcolor="secondary">
       <IconButton aria-label="add to favorites" onClick={toggleFavorite}>
-        <FavoriteIcon color={isFavorite ? "primary" : "secondary"} />
+        <FavoriteIcon color={isFavorite ? "error" : "secondary"} />
       </IconButton>
     </RenderCount>
   );

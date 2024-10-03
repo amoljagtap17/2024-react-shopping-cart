@@ -1,4 +1,4 @@
-import { Badge } from "@mui/material";
+import { Badge, Box } from "@mui/material";
 import { ReactNode, useRef } from "react";
 
 interface IRenderCountProp {
@@ -13,10 +13,12 @@ export function RenderCount({
   component = "div",
 }: IRenderCountProp) {
   const renderCount = useRef(0);
+  const showRenderCount: boolean =
+    import.meta.env.VITE_SHOW_RENDER_COUNT === "true";
 
   renderCount.current += 1;
 
-  return (
+  return showRenderCount ? (
     <Badge
       color={bgcolor}
       badgeContent={renderCount.current}
@@ -27,5 +29,7 @@ export function RenderCount({
     >
       {children}
     </Badge>
+  ) : (
+    <Box>{children}</Box>
   );
 }

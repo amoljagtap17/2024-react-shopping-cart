@@ -44,7 +44,7 @@ export function ProductCard({ product }: IProductCardProps) {
         <CardActions disableSpacing sx={{ justifyContent: "space-between" }}>
           <RenderCount bgcolor="secondary">
             <IconButton aria-label="add to favorites" onClick={toggleFavorite}>
-              <FavoriteIcon color={isFavorite ? "primary" : "secondary"} />
+              <FavoriteIcon color={isFavorite ? "error" : "inherit"} />
             </IconButton>
           </RenderCount>
           <RenderCount bgcolor="warning">
